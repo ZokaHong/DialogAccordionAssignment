@@ -1,71 +1,60 @@
 <script setup>
-import { nextTick, ref } from 'vue';
-const myDialog = ref(null)
+import { ref, watch, onMounted } from 'vue';
+const props = defineProps({
+    visible: {
+        type: Boolean,
+        required: true
+    }
+})
+const dialog = ref(null)
+onMounted(() => {
+    if (props.visible == true) {
+        dialog.value.showModal();
+    }
+});
 
-const openDialog = () => {
-    myDialog.value.showModal()
-}
-const closeDialog = () => {
-    myDialog.value.close()
-}
+watch(() => props.visible, (newValue) => {
+    if (newValue == true) {
+        console.log(newValue)
+        dialog.value.showModal()
+    } else {
+        console.log(newValue)
+        dialog.value.close()
+    }
+})
+
 
 </script>
 
 <template>
-    <div role="dialogOpenButton" @click="openDialog" id="openDialog">
-        <span>開啟 Dialog</span>
-        <span class="material-symbols-outlined openIcon">dialogs</span>
-    </div>
-
-    <dialog ref="myDialog">
+    <dialog ref="dialog">
         <section>
-            <h2>Dialog Title</h2>
-            <span role="dialogCloseButton" class="material-symbols-outlined closeIcon" @click="closeDialog">
-                close
-            </span>
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet nostrum nemo beatae earum sed repellendus soluta dolorem delectus et ducimus, exercitationem voluptas fuga, omnis aliquid officia deserunt? Repudiandae error doloribus tenetur fugiat? Ratione sint hic pariatur corporis amet consequuntur temporibus? Maiores, dolorem sed inventore nobis necessitatibus quos sunt molestiae soluta. Quam nobis necessitatibus optio, explicabo nostrum itaque autem ullam, distinctio, molestias eius possimus iste repudiandae iure sapiente odio est? Dolorum dicta iste id quibusdam, maiores omnis pariatur veritatis sunt suscipit. Suscipit sunt magni nemo, tempore libero consectetur adipisci. Harum ipsum quam natus tempore autem odio dignissimos? Cumque aliquid eveniet dolor!</p>
+            <slot name="title"></slot>
+            <slot name="close"></slot>
+            <slot name="content"></slot>
         </section>
     </dialog>
 </template>
 
 <style scoped>
-#openDialog{
-    width: 150px;
-    height: 50px;
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-end;
-    font: 700 24px '';
-    cursor: pointer;
+dialog {
+    padding: 0;
 }
+
 dialog::backdrop {
-    background-color: rgba(214, 150, 150, 0.2);
+    background-color: rgba(112, 104, 104, 0.3);
 }
-
-.closeIcon {
-    font: 700 45px 'Material Symbols Outlined';
-    color: brown;
-    cursor: pointer;
-}
-
 
 section {
     display: grid;
-    grid-template: minmax(20px, 60px) 300px / 1fr minmax(20px, 50px);
-    /* grid-template-rows: minmax(20px, 60px) 1fr;
-    grid-template-columns: 1fr minmax(20px, 50px); */
+    grid-template: 100px 1fr/ 1fr 100px;
+    justify-items: center;
     align-items: center;
-    gap: 10px;
-}
-section>h2{
-    font-family: '';
+    text-align: start;
+    gap: 2px;
 }
 
-dialog section>p {
-    grid-area: 2/1/span 1/ span 2;
-    color: rgb(14, 37, 37);
-    line-height: 40px;
-    align-self: flex-start;
-    border-top: 2px solid #000;
+section {
+    padding: 5px 15px;
 }
 </style>
