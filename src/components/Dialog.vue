@@ -1,20 +1,36 @@
 <script setup>
 import { ref, watch, onMounted } from 'vue';
-const defaultText = {
-    title: 'Default Title',
-    content: 'Default Content'
-}
+
+const dialogVisible = defineModel()
+
+/*
+defineModel() 雙向綁定 相當於 props + emit
 const props = defineProps({
     modelValue: {
         type: Boolean,
         required: true
+    },)}
+const emit = defineEmits(['update:modelValue'])
+const closeDialog = () => {
+    emit('update:modelValue', false)
+}
+*/
+
+const props = defineProps({
+    dialogData: {
+        type: Object,
+        default: () => {
+            return {
+                title: 'Default Dialog Title',
+                content: 'Default Dialog Content'
+            }
+        }
     }
 })
 const dialog = ref(null)
 
-const emit = defineEmits(['update:modelValue'])
 const closeDialog = () => {
-    emit('update:modelValue', false)
+    dialogVisible.value = false
 }
 
 onMounted(() => {
@@ -32,24 +48,32 @@ watch(() => props.modelValue, (newValue) => {
 
 })
 
+const closeIconStyle = {
+    font: " 700 45px 'Material Symbols Outlined'",
+    color: "brown",
+    cursor: "pointer"
+}
+
 </script>
 
 <template>
     <dialog ref="dialog" @click.self="closeDialog">
         <section>
-            <h1 class="titleText">
-                <slot name="title">
-                    {{ defaultText.title }}
-                </slot>
-            </h1>
-            <span class="material-symbols-outlined closeIcon" @click="closeDialog">
-                close
-            </span>
-            <p class="contentText">
-                <slot name="content">
-                    {{ defaultText.content }}
-                </slot>
-            </p>
+            <slot name="title">
+                <h1 class="titleText">
+                    {{ dialogData.title }}
+                </h1>
+            </slot>
+            <slot name="close" :closeIcon="closeIconStyle">
+                <span class="material-symbols-outlined" :style="closeIconStyle" @click="closeDialog">
+                    close
+                </span>
+            </slot>
+            <slot name="content">
+                <p class="contentText">
+                    {{ dialogData.content }}
+                </p>
+            </slot>
         </section>
     </dialog>
 </template>
@@ -75,13 +99,6 @@ section {
 
 section {
     padding: 5px 15px;
-}
-
-
-.closeIcon {
-    font: 700 45px 'Material Symbols Outlined';
-    color: brown;
-    cursor: pointer;
 }
 
 .titleText {

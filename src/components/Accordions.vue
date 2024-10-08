@@ -1,8 +1,16 @@
 <script setup>
-const defaultText = {
-    title: 'Default Title',
-    content: 'Default Content'
-}
+// eslint-disable-next-line no-unused-vars
+const props = defineProps({
+    detailData: {
+        type: Object,
+        default: () => {
+            return {
+                title: 'Default Accordions Title',
+                content: 'Default Accordions Content'
+            }
+        }
+    }
+})
 
 </script>
 
@@ -12,12 +20,12 @@ const defaultText = {
             <summary>
                 <span class="summaryText">
                     <slot name="title">
-                        {{ defaultText.title }}
+                        {{ detailData.title }}
                     </slot>
                 </span>
             </summary>
             <slot name="content">
-                <p class="detailText">{{ defaultText.content }}</p>
+                <p class="detailText">{{ detailData.content }}</p>
             </slot>
         </details>
     </div>

@@ -26,6 +26,8 @@ const detailList = [{
   title: '海邊的回憶',
   content: '夏天的海邊，海浪輕輕拍打著岸邊，留下白色的泡沫。陽光灑在沙灘上，金色的光輝讓人感到無比溫暖。我和朋友們一起嬉戲，堆沙堡、撿貝殼，笑聲在空中迴蕩。這些美好的回憶將永遠印在心中，成為青春的印記。海邊的每一個瞬間都是那麼珍貴，像是生命中閃耀的星光。'
 },]
+
+
 </script>
 
 <template>
@@ -35,18 +37,15 @@ const detailList = [{
       <span class="material-symbols-outlined openIcon">dialogs</span>
     </button>
 
-    <Dialog v-model="dialogVisible">
-      <template #title>{{ dialogPanel.title }}</template>
-      <template #content>{{ dialogPanel.content }}</template>
+    <Dialog v-model="dialogVisible" :dialogData="dialogPanel">
+      <template #title></template>
+      <template #close="{ closeIcon }"></template>
+      <template #content></template>
     </Dialog>
 
-    <Accordions v-for="(detail, id) in detailList" :key="detail.id">
-      <template #title>
-        {{ detail.title }}
-      </template>
-      <template #content>
-        {{ detail.content }}
-      </template>
+    <Accordions v-for="(detail, id) in detailList" :key="detail.id" :detailData="detail">
+      <template #title></template>
+      <template #content></template>
     </Accordions>
   </div>
 </template>
