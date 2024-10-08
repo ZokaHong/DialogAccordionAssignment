@@ -18,11 +18,11 @@ const props = defineProps({
     <div id="detailList">
         <details>
             <summary>
-                <span class="summaryText">
-                    <slot name="title">
+                <slot name="title">
+                    <span class="summaryText">
                         {{ detailData.title }}
-                    </slot>
-                </span>
+                    </span>
+                </slot>
             </summary>
             <slot name="content">
                 <p class="detailText">{{ detailData.content }}</p>
