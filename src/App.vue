@@ -38,12 +38,12 @@ const detailList = [{
     </button>
 
     <Dialog v-model="dialogVisible" :dialogData="dialogPanel">
-      <template #title></template>
-      <template #close="{ closeIcon }"></template>
-      <template #content></template>
+      <template #close="{ close }">
+        <button @click="close">關掉</button>
+      </template>
     </Dialog>
 
-    <Accordions v-for="(detail, id) in detailList" :key="detail.id" :detailData="detail">
+    <Accordions v-for="(detail, id) in detailList" :key="`Accordion1${id}`" :detailData="detail">
       <template #title></template>
       <template #content></template>
     </Accordions>

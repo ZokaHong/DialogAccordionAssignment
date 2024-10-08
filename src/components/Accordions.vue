@@ -1,6 +1,5 @@
 <script setup>
-// eslint-disable-next-line no-unused-vars
-const props = defineProps({
+defineProps({
     detailData: {
         type: Object,
         default: () => {

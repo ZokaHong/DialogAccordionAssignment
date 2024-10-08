@@ -1,22 +1,9 @@
 <script setup>
-import { ref, watch, onMounted } from 'vue';
+import { ref, watch } from 'vue';
 
 const dialogVisible = defineModel()
 
-/*
-defineModel() 雙向綁定 相當於 props + emit
-const props = defineProps({
-    modelValue: {
-        type: Boolean,
-        required: true
-    },)}
-const emit = defineEmits(['update:modelValue'])
-const closeDialog = () => {
-    emit('update:modelValue', false)
-}
-*/
-
-const props = defineProps({
+defineProps({
     dialogData: {
         type: Object,
         default: () => {
@@ -33,13 +20,7 @@ const closeDialog = () => {
     dialogVisible.value = false
 }
 
-onMounted(() => {
-    if (props.modelValue) {
-        dialog.value.showModal();
-    }
-});
-
-watch(() => props.modelValue, (newValue) => {
+watch(() => dialogVisible.value, (newValue) => {
     if (newValue) {
         dialog.value.showModal()
     } else {
@@ -48,28 +29,22 @@ watch(() => props.modelValue, (newValue) => {
 
 })
 
-const closeIconStyle = {
-    font: " 700 45px 'Material Symbols Outlined'",
-    color: "brown",
-    cursor: "pointer"
-}
-
 </script>
 
 <template>
     <dialog ref="dialog" @click.self="closeDialog">
         <section>
-            <slot name="title">
+            <slot>
                 <h1 class="titleText">
                     {{ dialogData.title }}
                 </h1>
             </slot>
-            <slot name="close" :closeIcon="closeIconStyle">
-                <span class="material-symbols-outlined" :style="closeIconStyle" @click="closeDialog">
+            <slot name="close" :close="closeDialog">
+                <span class="material-symbols-outlined closeIcon">
                     close
                 </span>
             </slot>
-            <slot name="content">
+            <slot>
                 <p class="contentText">
                     {{ dialogData.content }}
                 </p>
@@ -103,6 +78,12 @@ section {
 
 .titleText {
     color: chocolate;
+}
+
+.closeIcon {
+    font: 700 45px 'Material Symbols Outlined';
+    color: brown;
+    cursor: pointer;
 }
 
 .contentText {
