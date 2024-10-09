@@ -1,6 +1,6 @@
 <script setup>
-import Accordions from './components/Accordions.vue';
-import Dialog from './components/Dialog.vue'
+import BaseAccordions from './components/BaseAccordions.vue';
+import BaseDialog from './components/BaseDialog.vue';
 import { ref } from 'vue';
 
 const dialogVisible = ref(false)
@@ -37,16 +37,14 @@ const detailList = [{
       <span class="material-symbols-outlined openIcon">dialogs</span>
     </button>
 
-    <Dialog v-model="dialogVisible" :dialogData="dialogPanel">
+    <BaseDialog v-model="dialogVisible" :dialogData="dialogPanel">
       <template #close="{ close }">
         <button @click="close">關掉</button>
       </template>
-    </Dialog>
+    </BaseDialog>
 
-    <Accordions v-for="(detail, id) in detailList" :key="`Accordion1${id}`" :detailData="detail">
-      <template #title></template>
-      <template #content></template>
-    </Accordions>
+    <BaseAccordions v-for="(detail, id) in detailList" :key="`Accordion1${id}`" :detailData="detail">
+    </BaseAccordions>
   </div>
 </template>
 
