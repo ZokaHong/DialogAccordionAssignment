@@ -20,7 +20,7 @@ const closeDialog = () => {
     dialogVisible.value = false
 }
 
-watch(() => dialogVisible.value, (newValue) => {
+watch(dialogVisible, (newValue) => {
     if (newValue) {
         dialog.value.showModal()
     } else {
@@ -34,17 +34,17 @@ watch(() => dialogVisible.value, (newValue) => {
 <template>
     <dialog ref="dialog" @click.self="closeDialog">
         <section>
-            <slot>
+            <slot name="title">
                 <h1 class="titleText">
                     {{ dialogData.title }}
                 </h1>
             </slot>
-            <slot name="close" :close="closeDialog">
+            <slot name="close" :closeHandle="closeDialog">
                 <span class="material-symbols-outlined closeIcon">
                     close
                 </span>
             </slot>
-            <slot>
+            <slot name="content">
                 <p class="contentText">
                     {{ dialogData.content }}
                 </p>

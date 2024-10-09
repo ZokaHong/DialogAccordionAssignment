@@ -5,7 +5,7 @@ import { ref } from 'vue';
 
 const dialogVisible = ref(false)
 
-const dialogPanel = {
+const dialogData = {
   title: '秋天的散步',
   content: '秋天的午後，陽光透過樹葉的縫隙灑下金色的光芒，微風輕拂，帶來一絲涼意。沿著小路散步，地面上鋪滿了五顏六色的落葉，有的如紅酒般濃烈，有的則像陽光下的檸檬，閃耀著明亮的黃色。'
 }
@@ -37,13 +37,13 @@ const detailList = [{
       <span class="material-symbols-outlined openIcon">dialogs</span>
     </button>
 
-    <BaseDialog v-model="dialogVisible" :dialogData="dialogPanel">
-      <template #close="{ close }">
-        <button @click="close">關掉</button>
+    <BaseDialog v-model="dialogVisible" :dialogData="dialogData">
+      <template #close="{ closeHandle }">
+        <button @click="closeHandle">關掉</button>
       </template>
     </BaseDialog>
 
-    <BaseAccordions v-for="(detail, id) in detailList" :key="`Accordion1${id}`" :detailData="detail">
+    <BaseAccordions v-for="(detail, id) in detailList" :key="`Accordion${id}`" :detailData="detail">
     </BaseAccordions>
   </div>
 </template>
