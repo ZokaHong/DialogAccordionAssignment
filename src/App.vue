@@ -2,6 +2,7 @@
 import { ref } from 'vue'
 import BaseAccordions from './components/BaseAccordions.vue'
 import BaseDialog from './components/BaseDialog.vue'
+import CustomDialog from './components/CustomDialog.vue'
 
 const dialogVisible = ref(false)
 
@@ -27,6 +28,8 @@ const detailList = [{
 
 <template>
   <div class="container">
+    <CustomDialog />
+
     <button class="openButton" @click="dialogVisible = true">
       <span>開啟 Dialog</span>
       <span class="material-symbols-outlined openIcon">dialogs</span>

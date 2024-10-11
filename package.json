@@ -1,8 +1,8 @@
 {
-  "name": "detaildialog",
-  "private": true,
-  "version": "0.0.0",
+  "name": "ui_pack",
   "type": "module",
+  "version": "0.0.0",
+  "private": true,
   "scripts": {
     "dev": "vite",
     "build": "vite build",
