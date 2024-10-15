@@ -29,10 +29,13 @@ watch(dialogVisible, (newValue) => {
     dialog.value.close()
   }
 })
+function escHandler(event) {
+  event.preventDefault()
+}
 </script>
 
 <template>
-  <dialog ref="dialog" @click.self="closeDialog" @keydown.esc="closeDialog">
+  <dialog ref="dialog" @click.self="closeDialog" @keydown.esc="escHandler">
     <section>
       <slot name="title">
         <h1 class="titleText">
