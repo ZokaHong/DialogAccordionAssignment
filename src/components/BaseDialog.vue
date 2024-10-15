@@ -32,7 +32,7 @@ watch(dialogVisible, (newValue) => {
 </script>
 
 <template>
-  <dialog ref="dialog" @click.self="closeDialog">
+  <dialog ref="dialog" @click.self="closeDialog" @keydown.esc="closeDialog">
     <section>
       <slot name="title">
         <h1 class="titleText">
